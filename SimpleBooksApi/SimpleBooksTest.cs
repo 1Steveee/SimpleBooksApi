@@ -27,6 +27,11 @@ public class Tests
     }
 
     [Test]
+    public void TestGetAuthToken()
+    {
+    }
+
+    [Test]
     public void TestGetAllBooks()
     {
         List<Book> expectedListOfBooks = _simpleBooksData.GetListOfBooks();
