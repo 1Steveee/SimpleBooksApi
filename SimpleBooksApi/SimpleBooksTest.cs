@@ -14,6 +14,7 @@ public class Tests
     private readonly SimpleBookApi _simpleBookApi = new();
     private readonly Deserializer<Book> _deserializer = new ();
     private readonly SimpleBooksData _simpleBooksData = new();
+    private AccessToken _accessToken = new();
 
     [Test]
     public void TestGetApiStatus()
@@ -25,11 +26,7 @@ public class Tests
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         Assert.That(apiStatus.status, Is.EqualTo("OK"));
     }
-
-    [Test]
-    public void TestGetAuthToken()
-    {
-    }
+    
 
     [Test]
     public void TestGetAllBooks()
@@ -80,11 +77,24 @@ public class Tests
     }
 
     [Test]
+    [Explicit]
     public void TestOrderBook()
     {
         Order order = _simpleBooksData.GetNewOrder();
         RestResponse response = _simpleBookApi.OrderBook(order);
+
+    }
+
+    [Test]
+    public void TestGenerateAuthToken()
+    {
+        Client client = _simpleBooksData.GetNewClient();
+        RestResponse response = _simpleBookApi.GenerateAuthToken(client);
+
+        _accessToken = JsonConvert.DeserializeObject<AccessToken>(response.Content);
         
-        
+        //Add logic for access token 
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+        Assert.That(_accessToken.accessToken, Is.Not.Null);
     }
 }

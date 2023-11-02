@@ -31,4 +31,13 @@ public class SimpleBooksData
             customerName = "Steven James"
         };
     }
+
+    public Client GetNewClient()
+    {
+        return new Client()
+        {
+            clientEmail = "spich78111@gmail.com",
+            clientName = "Jason williams"
+        };
+    }
 }
