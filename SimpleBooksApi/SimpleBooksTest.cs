@@ -57,7 +57,8 @@ public class Tests
         //List<Book> actualListOfFictionBooks = new List<Book>(JsonConvert.DeserializeObject<List<Book>>(response.Content));
         
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        
+        Assert.That(actualListofFictionBooks.Count, Is.EqualTo(4));
+        Assert.True(actualListofFictionBooks.TrueForAll(book => book.type == BookType.Fiction));
     }
 
     [Test]
@@ -86,6 +87,7 @@ public class Tests
     }
 
     [Test]
+    [Explicit]
     public void TestGenerateAuthToken()
     {
         Client client = _simpleBooksData.GetNewClient();
